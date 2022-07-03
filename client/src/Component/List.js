@@ -5,7 +5,7 @@ import {Button} from 'react-bootstrap'
 
 const List = (props) => {
     // useEffect(() => {
-    //     alert("Success");
+    //     alert(pw);
     // })
     const [Text, setText] = useState("")
 
