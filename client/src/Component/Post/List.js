@@ -1,41 +1,40 @@
-import React from 'react'
-import {useState, useEffect} from 'react'
-import axios from "axios"
-import {Button} from 'react-bootstrap'
+import React from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { Button } from "react-bootstrap";
+import { ListDiv, ListItem } from "../../Style/ListCSS.js";
 
 const List = (props) => {
-    // useEffect(() => {
-    //     alert(pw);
-    // })
-    const [Text, setText] = useState("")
+  const [PostList, setPostList] = useState([]);
+  // useEffect(() => {
+  //     alert(pw);
+  // })
 
-    useEffect(() => {
-        let body = {
-            text : "Hello",
+  useEffect(() => {
+    axios
+      .post("/api/post/list")
+      .then((response) => {
+        if (response.data.success) {
+          setPostList([...response.data.postList]);
         }
-        axios
-        .post('/api/test', body)
-        .then((response) =>{
-            console.log(response.data);
-            setText(response.data.text)
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
-        })
-        .catch((error) => {
-            console.log(error);
-
-    });
-    }, [])
-    
-    return (
-        <div>
-            <h1>
-                List!
-                <h3>{Text}</h3>
-            </h1>
-      {props.ContentList.map((content,idx) => {return <div key={idx}>{content}</div>;
+  return (
+    <ListDiv>
+      {PostList.map((post, idx) => {
+        return (
+          <ListItem>
+            <p className="title"> {post.title}</p>
+            <p>{post.content}</p>
+          </ListItem>
+        );
       })}
-    </div>
-    );
+    </ListDiv>
+  );
 };
 
 export default List;
