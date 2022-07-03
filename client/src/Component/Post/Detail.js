@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Spinner from "react-bootstrap/Spinner";
-
 
 import {
   PostDiv,
@@ -11,6 +10,7 @@ import {
   SpinnerDiv,
 } from "../../Style/PostDetailCSS.js";
 function Detail() {
+    let navigate = useNavigate();
   let params = useParams();
   const [PostInfo, setPostInfo] = useState({});
   const [Flag, setFlag] = useState(false);
@@ -34,20 +34,41 @@ function Detail() {
     console.log(PostInfo);
   }, [PostInfo]);
 
+  const DeleteHandler = () => {
+    if (window.confirm("Are you sure?")) {
+      let body = {
+        postNum: params.postNum,
+      };
+      axios
+        .post("/api/post/delete", body)
+        .then((response) => {
+          if (response.data.success) {
+            alert("Post deleted");
+            navigate("/");
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
+
   return (
     <PostDiv>
       {Flag ? (
         <>
-        <Post>
-          <h1>{PostInfo.title}</h1>
-          <p>{PostInfo.content}</p>
-        </Post>
-        <BtnDiv>
-            <Link to= {`/edit/${PostInfo.postNum}`}>
-            <button className="edit">Edit</button>
+          <Post>
+            <h1>{PostInfo.title}</h1>
+            <p>{PostInfo.content}</p>
+          </Post>
+          <BtnDiv>
+            <Link to={`/edit/${PostInfo.postNum}`}>
+              <button className="edit">Edit</button>
             </Link>
-            <button className="delete">Delete</button>
-        </BtnDiv>
+            <button className="delete" onClick={() => DeleteHandler()}>
+              Delete
+            </button>
+          </BtnDiv>
         </>
       ) : (
         <SpinnerDiv>
