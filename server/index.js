@@ -4,7 +4,6 @@ const mongoose = require('mongoose');
 
 const app = express();
 const port = 5000;
-//mongodb+srv://msakong40:Ec88Vrj759gJDH@cluster0.y4dwt.mongodb.net/?retryWrites=true&w=majority
 app.use(express.static(path.join(__dirname, '../client/build')))
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
