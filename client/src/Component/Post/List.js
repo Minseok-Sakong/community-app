@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Button } from "react-bootstrap";
+import {Link} from "react-router-dom"
 import { ListDiv, ListItem } from "../../Style/ListCSS.js";
 
 const List = (props) => {
@@ -27,9 +28,11 @@ const List = (props) => {
     <ListDiv>
       {PostList.map((post, idx) => {
         return (
-          <ListItem>
+          <ListItem key={idx}>
+            <Link to={`/post/${post.postNum}`}>
             <p className="title"> {post.title}</p>
             <p>{post.content}</p>
+            </Link>
           </ListItem>
         );
       })}
