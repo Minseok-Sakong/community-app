@@ -6,8 +6,8 @@ import {
   Route,
 } from "react-router-dom";
 import Heading from './Component/Heading';
-import List from './Component/List';
-import Upload from './Component/Upload';
+import List from './Component/Post/List';
+import Upload from './Component/Post/Upload';
 import { useState } from 'react';
 /*
 1. A component name must start with Capital letters.
@@ -20,7 +20,7 @@ function App() {
     <>
     <Heading/>
     <Routes>
-      <Route path="/list" 
+      <Route path="/" 
       element={<List ContentList={ContentList} setContentList = {setContentList}/>} />
       <Route path="/upload" 
       element={<Upload ContentList={ContentList} setContentList = {setContentList}/>} />

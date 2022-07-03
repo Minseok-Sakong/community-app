@@ -21,7 +21,7 @@ const Heading = () => {
                 <Link to='/upload' style={{color:"white", textDecoration: "none"}}>upload</Link>
                 </Nav.Link>
                 <Nav.Link>
-                <Link to='/list' style={{color:"white", textDecoration: "none"}}>list</Link>
+                <Link to='/' style={{color:"white", textDecoration: "none"}}>list</Link>
                 </Nav.Link>
           </Nav>
         </Navbar.Collapse>
