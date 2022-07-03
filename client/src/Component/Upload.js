@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react'
+import {UploadDiv, UploadForm, UploadButtonDiv} from "../Style/UploadCss.js"
 
 const Upload = (props) => {
     const [Content, setContent] = useState("");
@@ -15,17 +16,28 @@ const Upload = (props) => {
     }, [Content]);
     
     return (
-        <div>
-        <input type="text" 
+        <UploadDiv>
+          <UploadForm>
+            <label htmlFor=''>Title</label>
+          <input
+          id='title'
+          type="text" 
       value={Content} 
       onChange={(e)=> {
         setContent(e.currentTarget.value);
       }}
       />
-      <button onClick={() => {
+      <label htmlFor=''>Content</label>
+          <textarea/>
+      <UploadButtonDiv> 
+      <button
+      onClick={() => {
         onSubmit();
-      }}>Submit</button>
-        </div>
+      }}>Submit
+      </button>
+      </UploadButtonDiv>
+          </UploadForm>
+        </UploadDiv>
     );
 };
 
