@@ -1,7 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import Spinner from "react-bootstrap/Spinner";
+
+
+import {
+  PostDiv,
+  Post,
+  BtnDiv,
+  SpinnerDiv,
+} from "../../Style/PostDetailCSS.js";
 function Detail() {
   let params = useParams();
   const [PostInfo, setPostInfo] = useState({});
@@ -27,18 +35,28 @@ function Detail() {
   }, [PostInfo]);
 
   return (
-    <div>
+    <PostDiv>
       {Flag ? (
-        <div>
-          {PostInfo.title}
-          {PostInfo.content}
-        </div>
+        <>
+        <Post>
+          <h1>{PostInfo.title}</h1>
+          <p>{PostInfo.content}</p>
+        </Post>
+        <BtnDiv>
+            <Link to= {`/edit/${PostInfo.postNum}`}>
+            <button className="edit">Edit</button>
+            </Link>
+            <button className="delete">Delete</button>
+        </BtnDiv>
+        </>
       ) : (
-        <Spinner animation="border" role="status">
-          <span className="visually-hidden">Loading...</span>{" "}
-        </Spinner>
+        <SpinnerDiv>
+          <Spinner animation="border" role="status">
+            <span className="visually-hidden">Loading...</span>{" "}
+          </Spinner>
+        </SpinnerDiv>
       )}
-    </div>
+    </PostDiv>
   );
 }
 
