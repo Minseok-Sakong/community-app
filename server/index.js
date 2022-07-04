@@ -12,6 +12,7 @@ app.use(express.urlencoded({ extended: true }));
 
 const { pw } = require("./pw.js"); //import mongodb password
 app.use("/api/post", require("./Router/post.js"))
+app.use("/api/user", require("./Router/user.js"))
 app.listen(port, () => {
   mongoose
     .connect(

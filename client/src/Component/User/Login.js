@@ -6,6 +6,11 @@ function Login() {
   const [Email, setEmail] = useState("");
   const [PW, setPW] = useState("");
   let navigate = useNavigate();
+
+  const SignInFunc = async (e) => {
+    e.preventDefault();
+  }
+
   return (
     <LoginDiv>
       <form>
@@ -21,7 +26,7 @@ function Login() {
           value={PW}
           onChange={(e) => setPW(e.currentTarget.value)}
         />
-        <button>Login</button>
+        <button onClick = {(e)=>SignInFunc()}>Login</button>
         <button onClick= {(e)=>{
             e.preventDefault();
             navigate("/register");
