@@ -12,10 +12,11 @@ const UploadForm = styled.div`
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    input {
+    #title {
         border-radius: 10px;
         border: 2px solid #c6c6c6;
         padding: 10px;
+        margin-bottom: 10px;
         &:active,
         &:focus {
             outline: none;

@@ -10,7 +10,7 @@ import {
   SpinnerDiv,
 } from "../../Style/PostDetailCSS.js";
 function Detail() {
-    let navigate = useNavigate();
+  let navigate = useNavigate();
   let params = useParams();
   const [PostInfo, setPostInfo] = useState({});
   const [Flag, setFlag] = useState(false);
@@ -59,6 +59,13 @@ function Detail() {
         <>
           <Post>
             <h1>{PostInfo.title}</h1>
+            {PostInfo.image ? (
+              <img
+                src={`http://localhost:5000/${PostInfo.image}`}
+                alt=""
+                style={{ width: "80%", height: "auto" }}
+              />
+            ) : null}
             <p>{PostInfo.content}</p>
           </Post>
           <BtnDiv>
