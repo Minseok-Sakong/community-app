@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Spinner from "react-bootstrap/Spinner";
+import {useSelector} from "react-redux";
 
 import {
   PostDiv,
@@ -12,6 +13,8 @@ import {
 function Detail() {
   let navigate = useNavigate();
   let params = useParams();
+  const user = useSelector((state)=>state.user);
+
   const [PostInfo, setPostInfo] = useState({});
   const [Flag, setFlag] = useState(false);
   useEffect(() => {
@@ -59,6 +62,7 @@ function Detail() {
         <>
           <Post>
             <h1>{PostInfo.title}</h1>
+            <h3>{PostInfo.author.displayName}</h3>
             {PostInfo.image ? (
               <img
                 src={`http://localhost:5000/${PostInfo.image}`}
@@ -68,14 +72,14 @@ function Detail() {
             ) : null}
             <p>{PostInfo.content}</p>
           </Post>
-          <BtnDiv>
+          {user.uid === PostInfo.author.uid && (<BtnDiv>
             <Link to={`/edit/${PostInfo.postNum}`}>
               <button className="edit">Edit</button>
             </Link>
             <button className="delete" onClick={() => DeleteHandler()}>
               Delete
             </button>
-          </BtnDiv>
+          </BtnDiv>)}
         </>
       ) : (
         <SpinnerDiv>

@@ -4,12 +4,23 @@ import { useNavigate } from "react-router-dom";
 import { UploadDiv, UploadForm, UploadButtonDiv } from "../../Style/UploadCss.js";
 import axios from 'axios';
 import ImageUpload from "./ImageUpload.js"
+import {useSelector} from "react-redux";
 
 const Upload = () => {
   let navigate = useNavigate();
   const [Title, setTitle] = useState("");
   const [Content, setContent] = useState("");
   const [Image, setImage] = useState("");
+  const user = useSelector((state)=> state.user);
+
+  useEffect(() => {
+    if (!user.accessToken){
+      alert("Please log-in with your account, first!")
+      navigate("/login");
+    }
+  
+  }, [])
+  
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -20,6 +31,8 @@ const Upload = () => {
       title: Title,
       content: Content,
       image: Image,
+      uid: user.uid,
+      
     }
     axios.post("/api/post/submit", body).then((response) => {
       if (response.data.success){

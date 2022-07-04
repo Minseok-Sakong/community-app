@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { LoginDiv, MyPageDiv } from "../../Style/UserCSS.js";
 import firebase from "../../firebase.js";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import {useSelector} from "react-redux";
 
 function Register() {
   const [Name, setName] = useState("");
@@ -13,6 +14,13 @@ function Register() {
   const [NameCheck, setNameCheck] = useState(false);
   const [NameInfo, setNameInfo] = useState("");
   let navigate = useNavigate();
+  const user = useSelector((state) => state.user);
+
+  useEffect(() => {
+    if (user.accessToken) {
+      navigate("/");
+    }
+  }, []);
   const RegisterFunc = async (e) => {
     setFlag(true);
     e.preventDefault();
@@ -27,6 +35,9 @@ function Register() {
     if (PW.length < 8) {
       return alert("Password length must be longer than 7!");
       setFlag(false);
+    }
+    if (!NameCheck){
+      return alert("Please check your nickname!");
     }
     let createdUser = await firebase
       .auth()
@@ -50,6 +61,25 @@ function Register() {
       }
     });
   };
+  const NameCheckFunc = (e) => {
+    e.preventDefault();
+    if (!Name){
+      return alert("Please choose your nickname");
+    }
+    let body = {
+      displayName : Name,
+    }
+    axios.post("/api/user/namecheck", body).then((response)=> {
+      if (response.data.success){
+        if (response.data.check){
+          setNameCheck(true);
+          setNameInfo("You can use this nickname.");
+        }else {
+          setNameInfo("Please choose another nickname.")
+        }
+      }
+    })
+  }
   return (
     <LoginDiv>
       <form>
@@ -61,7 +91,7 @@ function Register() {
           disabled={NameCheck}
         />
         {NameInfo}
-        <button>Check Nickname</button>
+        <button onClick={(e)=> NameCheckFunc(e)}>Check Nickname</button>
         <label>Email</label>
         <input
           type="email"

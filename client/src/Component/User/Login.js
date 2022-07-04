@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { LoginDiv, MyPageDiv } from "../../Style/UserCSS.js";
 import { useNavigate } from "react-router-dom";
-
+import {useSelector} from "react-redux";
 import firebase from "../../firebase.js";
 
 function Login() {
@@ -9,6 +9,13 @@ function Login() {
   const [PW, setPW] = useState("");
   const [ErrorMsg, setErrorMsg] = useState("");
   let navigate = useNavigate();
+  const user = useSelector((state) => state.user);
+  
+  useEffect(() => {
+    if (user.accessToken) {
+      navigate("/");
+    }
+  }, []);
 
   const SignInFunc = async (e) => {
     e.preventDefault();
