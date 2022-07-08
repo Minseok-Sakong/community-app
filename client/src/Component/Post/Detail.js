@@ -1,41 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
-import Spinner from "react-bootstrap/Spinner";
-import {useSelector} from "react-redux";
+import { useSelector } from "react-redux";
 
-import {
-  PostDiv,
-  Post,
-  BtnDiv,
-  SpinnerDiv,
-} from "../../Style/PostDetailCSS.js";
-function Detail() {
+import { PostDiv, Post, BtnDiv } from "../../Style/PostDetailCSS.js";
+function Detail(props) {
   let navigate = useNavigate();
   let params = useParams();
-  const user = useSelector((state)=>state.user);
-
-  const [PostInfo, setPostInfo] = useState({});
-  const [Flag, setFlag] = useState(false);
-  useEffect(() => {
-    let body = {
-      postNum: params.postNum,
-    };
-    axios
-      .post("/api/post/detail", body)
-      .then((response) => {
-        if (response.data.success) {
-          setPostInfo(response.data.post);
-          setFlag(true);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
-  useEffect(() => {
-    console.log(PostInfo);
-  }, [PostInfo]);
+  const user = useSelector((state) => state.user);
 
   const DeleteHandler = () => {
     if (window.confirm("Are you sure?")) {
@@ -58,35 +30,27 @@ function Detail() {
 
   return (
     <PostDiv>
-      {Flag ? (
-        <>
-          <Post>
-            <h1>{PostInfo.title}</h1>
-            <h3>{PostInfo.author.displayName}</h3>
-            {PostInfo.image ? (
-              <img
-                src={`http://localhost:5000/${PostInfo.image}`}
-                alt=""
-                style={{ width: "80%", height: "auto" }}
-              />
-            ) : null}
-            <p>{PostInfo.content}</p>
-          </Post>
-          {user.uid === PostInfo.author.uid && (<BtnDiv>
-            <Link to={`/edit/${PostInfo.postNum}`}>
-              <button className="edit">Edit</button>
-            </Link>
-            <button className="delete" onClick={() => DeleteHandler()}>
-              Delete
-            </button>
-          </BtnDiv>)}
-        </>
-      ) : (
-        <SpinnerDiv>
-          <Spinner animation="border" role="status">
-            <span className="visually-hidden">Loading...</span>{" "}
-          </Spinner>
-        </SpinnerDiv>
+      <Post>
+        <h1>{props.PostInfo.title}</h1>
+        <h3>{props.PostInfo.author.displayName}</h3>
+        {props.PostInfo.image ? (
+          <img
+            src={`http://localhost:5000/${props.PostInfo.image}`}
+            alt=""
+            style={{ width: "80%", height: "auto" }}
+          />
+        ) : null}
+        <p>{props.PostInfo.content}</p>
+      </Post>
+      {user.uid === props.PostInfo.author.uid && (
+        <BtnDiv>
+          <Link to={`/edit/${props.PostInfo.postNum}`}>
+            <button className="edit">Edit</button>
+          </Link>
+          <button className="delete" onClick={() => DeleteHandler()}>
+            Delete
+          </button>
+        </BtnDiv>
       )}
     </PostDiv>
   );

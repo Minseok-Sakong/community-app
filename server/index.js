@@ -11,13 +11,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 const { pw } = require("./pw.js"); //import mongodb password
-app.use("/api/post", require("./Router/post.js"))
-app.use("/api/user", require("./Router/user.js"))
+app.use("/api/post", require("./Router/post.js"));
+app.use("/api/user", require("./Router/user.js"));
+app.use("/api/reple", require("./Router/reple.js"));
 app.listen(port, () => {
   mongoose
-    .connect(
-      config.mongoURI
-    )
+    .connect(config.mongoURI)
     .then(() => {
       console.log(`Example app listening on port ${port}`);
       console.log(`Connecting mongodb`);
@@ -34,5 +33,3 @@ app.get("/", (req, res) => {
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "../client/build/index.html"));
 });
-
-

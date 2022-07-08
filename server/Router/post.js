@@ -52,7 +52,7 @@ router.post("/detail", (req, res) => {
     .populate("author")
     .exec()
     .then((doc) => {
-      console.log(doc);
+      //console.log(doc);
       res.status(200).json({ success: true, post: doc });
     })
     .catch((err) => {
