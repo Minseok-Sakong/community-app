@@ -32,4 +32,21 @@ router.post("/submit", (req, res) => {
       return res.status(400).json({ success: false });
     });
 });
+
+router.post("/getReple", (req, res) => {
+  Reple.find({ postId: req.body.postId })
+    .populate("author")
+    .exec()
+    .then((repleInfo) => {
+      return res.status(200).json({
+        success: true,
+        repleList: repleInfo,
+      });
+    })
+    .catch((err) => {
+      return res.status(200).json({
+        success: false,
+      });
+    });
+});
 module.exports = router;

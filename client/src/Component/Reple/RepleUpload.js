@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
-import { userSlice } from "../../Reducer/userSlice";
 
 function RepleUpload(props) {
   const [Reple, setReple] = useState("");
@@ -22,6 +21,7 @@ function RepleUpload(props) {
     axios.post("/api/reple/submit", body).then((response) => {
       if (response.data.success) {
         alert("Comment created!");
+        window.location.reload();
       } else {
         alert("Failed to create a comment!");
       }
