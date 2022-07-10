@@ -13,7 +13,8 @@ const RepleUploadDiv = styled.div`
   width: 100%;
 
   form {
-    width: 100%;
+    width: 60%;
+    margin: auto;
     display: grid;
     grid-template-columns: 7fr 1fr;
     grid-template-rows: 50px;
@@ -64,6 +65,8 @@ const RepleListDiv = styled.div`
 `;
 
 const RepleContentDiv = styled.div`
+  width: 60%;
+  margin: auto;
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.03), 0px 7.5px 6px rgba(0, 0, 0, 0.1);
   padding: 20px 10px;
   margin-bottom: 10px;

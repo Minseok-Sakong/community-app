@@ -32,7 +32,9 @@ function Detail(props) {
     <PostDiv>
       <Post>
         <h1>{props.PostInfo.title}</h1>
-        <h3>{props.PostInfo.author.displayName}</h3>
+        <div className="author">
+        <p>{props.PostInfo.author.displayName}</p>
+        </div>
         {props.PostInfo.image ? (
           <img
             src={`http://localhost:5000/${props.PostInfo.image}`}

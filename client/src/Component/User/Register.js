@@ -25,16 +25,16 @@ function Register() {
     setFlag(true);
     e.preventDefault();
     if (!(Name && Email && PW && PWConfirm)) {
-      return alert("Please fill out all the prompts!");
       setFlag(false);
+      return alert("Please fill out all the prompts!");
     }
     if (PW != PWConfirm) {
-      return alert("Password does not match with Password Confirm!");
       setFlag(false);
+      return alert("Password does not match with Password Confirm!");
     }
     if (PW.length < 8) {
-      return alert("Password length must be longer than 7!");
       setFlag(false);
+      return alert("Password length must be longer than 7!");
     }
     if (!NameCheck){
       return alert("Please check your nickname!");
